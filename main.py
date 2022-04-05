@@ -1,7 +1,7 @@
 from tkinter import *
 import random
 
-class Question():
+class Generate_Question():
     def __init__(self):
         self.n1 = random. randint(0,10)
         self.n2 = random. randint(0,10)
@@ -16,8 +16,10 @@ class Question():
 
 class GUI:
     def __init__(self, parent):
-        self.result = StringVar()
-        self.result.set("") 
+        self.question = StringVar()
+        self.question.set(self.create_question) 
+
+        self.q = Generate_Question()
 
         f1 = Frame(parent)
 
@@ -31,13 +33,19 @@ class GUI:
 
         f1.pack()
 
-        self.q_label.configure(text="NUMBER*NUMBER=")
+        self.q_label.configure(text=self.q.get())
 
     def create_question(self):
-        return
+        self.q = Generate_Question()
+        self.q_label.configure(text=self.q.get())
 
     def check_question(self):
+        print(self.q.correct_answer())
         print(self.q_entry.get())
+        if int(self.q_entry.get()) == self.q.correct_answer():
+            print("Correct")
+        else:
+            print("Incorrect")
         return
     
 if __name__ == "__main__":
