@@ -23,29 +23,33 @@ class GUI:
 
         f1 = Frame(parent)
 
-        self.q_label = Label(f1, text="NUMBER")
-        self.q_label.grid(row=0, column=0)
-        self.q_entry = Entry(f1)
-        self.q_entry.grid(row=0, column=1)
+        self.question_label = Label(f1, text="NUMBER")
+        self.question_label.grid(row=0, column=0)
+        
+        self.question_entry = Entry(f1)
+        self.question_entry.grid(row=0, column=1)
 
         Button(f1, text="Next", command=self.create_question).grid(row=0, column=2)
-        Button(f1, text="Check Answer", command=self.check_question).grid(row=1, column=1)
+        Button(f1, text="Check Answer", command=self.check_question).grid(row=1, column=0)
+
+        self.result_label = Label(f1, text="")
+        self.result_label.grid(row=1, column=1)
 
         f1.pack()
 
-        self.q_label.configure(text=self.q.get())
+        self.question_label.configure(text=self.q.get())
 
     def create_question(self):
         self.q = Generate_Question()
-        self.q_label.configure(text=self.q.get())
+        self.question_label.configure(text=self.q.get())
 
     def check_question(self):
         print(self.q.correct_answer())
-        print(self.q_entry.get())
-        if int(self.q_entry.get()) == self.q.correct_answer():
-            print("Correct")
+        print(self.question_entry.get())
+        if int(self.question_entry.get()) == self.q.correct_answer():
+            self.result_label.configure(text="Correct")
         else:
-            print("Incorrect")
+            self.result_label.configure(text="Incorrect")
         return
     
 if __name__ == "__main__":
