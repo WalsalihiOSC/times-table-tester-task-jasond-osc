@@ -1,14 +1,18 @@
 from tkinter import *
+import random
 
-class Cities:
-    def __init__ (self):
-        self.cities = ["Wellington", "Hamilton", "Auckland", "Christchurch"]
+class Question():
+    def __init__(self):
+        self.n1 = random. randint(0,10)
+        self.n2 = random. randint(0,10)
 
-    def get_cities(self):
-        return self.cities
+    def get(self):
+        question = str(self.n1) + " * " + str(self.n2) + " = "
+        return question
 
-    def capital_city(self) :
-        return "Wellington"
+    def correct_answer(self):
+        correct = self.n1 * self.n2
+        return correct
 
 class GUI:
     def __init__(self, parent):
@@ -17,26 +21,24 @@ class GUI:
 
         f1 = Frame(parent)
 
-        Label(f1, text="Question").grid(column=0)
-        Label(f1, text="What is the capital of New Zealand").grid(column=1, row=0)
-        self.c = Cities()
-        cities = self.c.get_cities()
-        
-        r = 1
-        for i in(cities):
-            Radiobutton(f1, text=i, value=i, variable=self.result, command=self.display_result).grid(column=1, row=r, sticky=W)
-            r += 1
+        self.q_label = Label(f1, text="NUMBER")
+        self.q_label.grid(row=0, column=0)
+        self.q_entry = Entry(f1)
+        self.q_entry.grid(row=0, column=1)
+
+        Button(f1, text="Next", command=self.create_question).grid(row=0, column=2)
+        Button(f1, text="Check Answer", command=self.check_question).grid(row=1, column=1)
 
         f1.pack()
 
-        self.output_label = Label(parent, text=self.result.get())
-        self.output_label.pack()
+        self.q_label.configure(text="NUMBER*NUMBER=")
 
-    def display_result(self):
-        if self.result.get() == self.c.capital_city():
-            self.output_label.configure(text="Correct")
-        else:
-            self.output_label.configure(text="Incorrect")
+    def create_question(self):
+        return
+
+    def check_question(self):
+        print(self.q_entry.get())
+        return
     
 if __name__ == "__main__":
     root = Tk()
